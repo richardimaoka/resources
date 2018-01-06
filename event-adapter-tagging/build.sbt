@@ -8,5 +8,8 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "event-adapter-tagging",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-persistence" % "2.5.6",
+      scalaTest % Test
+    )
   )
