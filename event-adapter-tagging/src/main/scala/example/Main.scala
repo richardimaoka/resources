@@ -9,17 +9,23 @@ case class Event(i: Int)
 
 class MyPersistentActor extends PersistentActor {
   var sum: Int = 0
+
   override val persistenceId: String = "myPid"
 
   override def receiveRecover: Receive = {
     case Event(i) ⇒
+      println(s"receiveRecover: Recovering an event = Event(${i})")
       sum += i
+      println(s"receiveRecover: current state = ${sum}")
   }
 
   override def receiveCommand: Receive = {
     case Command(i) ⇒
+      println(s"receiveCommand  : Received Command Cmd(${i})")
       persist(Event(i)) { event ⇒
+        println(s"persist callback: Event = Event(${e.i}) persisted")
         sum += i
+        println(s"persist callback: current state = ${sum}")
       }
   }
 }
