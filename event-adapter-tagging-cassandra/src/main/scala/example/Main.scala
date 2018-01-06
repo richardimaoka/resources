@@ -27,9 +27,9 @@ class MyPersistentActor extends PersistentActor {
 
   override def receiveCommand: Receive = {
     case Command(i) ⇒
-      println(s"receiveCommand  : Received Command Command($i)")
+      println(s"receiveCommand  : Received Command($i)")
       persist(Event(i)) { event ⇒
-        println(s"persist callback: Event = Event($event.i) persisted")
+        println(s"persist callback: Event = Event(${event.i}) persisted")
         sum += i
         println(s"persist callback: current state = $sum")
       }
@@ -49,10 +49,18 @@ object Main {
       p1 ! Command(1)
       p1 ! Command(2)
       p1 ! Command(3)
+
+      // akka-persistence-cassandra plugin has internal buffering,
+      // so if a persistent actor throws an exception and restart
+      // before the buffer is flushed to write everything into cassandra,
+      // there could be sequence number inconsistency ...
+      //
+      // There seems to be a way to avoid that issue by configuration, but Thread.sleep was easier.
+      Thread.sleep(3000)
       p1 ! "kaboom"
       p1 ! Command(4)
       p1 ! Command(5)
-      Thread.sleep(1000)
+      Thread.sleep(3000)
     } finally {
       system.terminate()
     }

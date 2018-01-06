@@ -10,6 +10,7 @@ lazy val root = (project in file(".")).
     name := "event-adapter-tagging-cassandra",
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-persistence" % "2.5.6",
+      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.80-RC3",
       scalaTest % Test
     )
   )
