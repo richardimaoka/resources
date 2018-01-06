@@ -21,12 +21,14 @@ class MyPersistentActor extends PersistentActor {
 
   override def receiveCommand: Receive = {
     case Command(i) ⇒
-      println(s"receiveCommand  : Received Command Cmd(${i})")
+      println(s"receiveCommand  : Received Command Command(${i})")
       persist(Event(i)) { event ⇒
-        println(s"persist callback: Event = Event(${e.i}) persisted")
+        println(s"persist callback: Event = Event(${event.i}) persisted")
         sum += i
         println(s"persist callback: current state = ${sum}")
       }
+    case "kaboom" ⇒
+      throw new Exception("exploded!")
   }
 }
 
@@ -41,8 +43,10 @@ object Main {
       p1 ! Command(1)
       p1 ! Command(2)
       p1 ! Command(3)
-      Thread.sleep(3000)
-
+      p1 ! "kaboom"
+      p1 ! Command(4)
+      p1 ! Command(5)
+      Thread.sleep(1000)
     } finally {
       system.terminate()
     }
