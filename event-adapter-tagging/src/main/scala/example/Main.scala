@@ -2,6 +2,7 @@ package example
 
 import akka.actor.{ActorSystem, Props}
 import akka.persistence.PersistentActor
+import akka.persistence.journal.Tagged
 import com.typesafe.config.ConfigFactory
 
 case class Command(i: Int)
@@ -14,18 +15,23 @@ class MyPersistentActor extends PersistentActor {
 
   override def receiveRecover: Receive = {
     case Event(i) ⇒
-      println(s"receiveRecover: Recovering an event = Event(${i})")
+      println(s"receiveRecover  : Recovering an event = Event($i)")
       sum += i
-      println(s"receiveRecover: current state = ${sum}")
+      println(s"receiveRecover  : current state = $sum")
+    case Tagged(Event(i), tags) ⇒
+      println(s"receiveRecover  : Recovering from Tagged(Event($i), $tags)")
+      sum += i
+      println(s"receiveRecover  : current state = $sum")
+
   }
 
   override def receiveCommand: Receive = {
     case Command(i) ⇒
-      println(s"receiveCommand  : Received Command Command(${i})")
+      println(s"receiveCommand  : Received Command Command($i)")
       persist(Event(i)) { event ⇒
-        println(s"persist callback: Event = Event(${event.i}) persisted")
+        println(s"persist callback: Event = Event($event.i) persisted")
         sum += i
-        println(s"persist callback: current state = ${sum}")
+        println(s"persist callback: current state = $sum")
       }
     case "kaboom" ⇒
       throw new Exception("exploded!")
