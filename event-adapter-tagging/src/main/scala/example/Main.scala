@@ -29,7 +29,7 @@ class MyPersistentActor extends PersistentActor {
     case Command(i) ⇒
       println(s"receiveCommand  : Received Command Command($i)")
       persist(Event(i)) { event ⇒
-        println(s"persist callback: Event = Event($event.i) persisted")
+        println(s"persist callback: Event = Event(${event.i}) persisted")
         sum += i
         println(s"persist callback: current state = $sum")
       }
