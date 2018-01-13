@@ -9,7 +9,7 @@ lazy val root = (project in file(".")).
     )),
     name := "persistent-actor-minimal",
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-persistence" % "2.5.6",
+      "com.typesafe.akka" %% "akka-persistence" % "2.5.9",
       scalaTest % Test
     )
   )

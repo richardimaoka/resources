@@ -1,7 +1,52 @@
+---
+title: PersistentActor minimal example
+date: "2018-01-14T01:16:00.00+9:00"
+---
 
+## Overview
 
+You can find the code and instruction to run the example at [GitHub](https://github.com/richardimaoka/resources/tree/master/persistent-actor-minimal).
+
+### receiveCommand
+
+<iframe width="480" height="270"" src="https://www.youtube.com/embed/Jt9xDvYMNMc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+```scala
+  override def receiveCommand: Receive = {
+    case Command(i) ⇒
+      persist(Event(i)) { event ⇒
+        sum += i
+      }
+  }
 ```
+
+Persistence actor receives a `Command` and generate an `Event`, then persist the `Event` via `Journal`. The `receiveCommand` method of `PersistentActor` does that.
+
+
+### receiveRecover
+
+<iframe width="480" height="270" src="https://www.youtube.com/embed/xfsF0u0s3e4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+```scala
+  override def receiveRecover: Receive = {
+    case Event(i) ⇒
+      sum += i
+  }
+```
+
+`receiveRecover` is called upon restarting a `PersistentActor` after exception was thrown.
+
+## Instruction to run the example
+```
+> git clone https://github.com/richardimaoka/resources.git
+> cd resources
+> cd persistent-actor-minimal
+> sbt
 > runMain example.Main
+```
+
+## Output 
+```
 [info] Running example.Main
 receiveCommand  : Received Command Command(1)
 persist callback: Event = Event(1) persisted
@@ -46,3 +91,7 @@ persist callback: Event = Event(5) persisted
 persist callback: current state = 15
 [success] Total time: 2 s, completed Jan 13, 2018 5:24:20 PM
 ```
+
+## References 
+
+- Official documentation at https://doc.akka.io/docs/akka/2.5.9/persistence.html
