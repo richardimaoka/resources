@@ -1,40 +1,4 @@
----
-title: PersistentActor minimal example
-date: "2018-01-14T01:31:00.000+0900"
----
-
-## Overview
-
-You can find the code and instruction to run the example at [GitHub](https://github.com/richardimaoka/resources/tree/master/persistent-actor-minimal).
-
-### receiveCommand
-
-<iframe width="480" height="270"" src="https://www.youtube.com/embed/Jt9xDvYMNMc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-```scala
-  override def receiveCommand: Receive = {
-    case Command(i) ⇒
-      persist(Event(i)) { event ⇒
-        sum += i
-      }
-  }
-```
-
-Persistence actor receives a `Command` and generate an `Event`, then persist the `Event` via `Journal`. The `receiveCommand` method of `PersistentActor` does that.
-
-
-### receiveRecover
-
-<iframe width="480" height="270" src="https://www.youtube.com/embed/xfsF0u0s3e4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-```scala
-  override def receiveRecover: Receive = {
-    case Event(i) ⇒
-      sum += i
-  }
-```
-
-`receiveRecover` is called upon restarting a `PersistentActor` after exception was thrown.
+blog post is https://richardimaoka.github.io/blog/persistent-actor-minimal
 
 ## Instruction to run the example
 ```
