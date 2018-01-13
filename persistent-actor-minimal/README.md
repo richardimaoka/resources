@@ -1,6 +1,6 @@
 ---
 title: PersistentActor minimal example
-date: "2018-01-14T01:16:00.00+9:00"
+date: "2018-01-14T01:31:00.000+0900"
 ---
 
 ## Overview
