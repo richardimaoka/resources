@@ -55,7 +55,8 @@ object Main {
       // before the buffer is flushed to write everything into cassandra,
       // there could be sequence number inconsistency ...
       //
-      // There seems to be a way to avoid that issue by configuration, but Thread.sleep was easier.
+      // There seems to be a way to avoid that issue by configuration,
+      // but Thread.sleep was easier for this example.
       Thread.sleep(3000)
       p1 ! "kaboom"
       p1 ! Command(4)
