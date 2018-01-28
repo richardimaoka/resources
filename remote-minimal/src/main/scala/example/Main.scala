@@ -36,6 +36,13 @@ object Main {
       // wait until user presses a key on console,
       // and exits immediately when a key is entered
       scala.io.StdIn.readLine()
+
+      //https://groups.google.com/forum/#!topic/akka-user/eerWNwRQ7o0
+//      EchoActor: received message = Hello!!
+//      [ERROR] [01/25/2018 07:02:56.959] [receiverSystem-akka.remote.default-remote-dispatcher-14] [akka.tcp://receiverSystem@127.0.0.1:2551/system/endpointManager/reliableEndpointWriter-akka.tcp%3A%2F%2FsenderSystem%40127.0.0.1%3A2552-2/endpointWriter] AssociationError [akka.tcp://receiverSystem@127.0.0.1:2551] <- [akka.tcp://senderSystem@127.0.0.1:2552]: Error [Shut down address: akka.tcp://senderSystem@127.0.0.1:2552] [
+//      akka.remote.ShutDownAssociation: Shut down address: akka.tcp://senderSystem@127.0.0.1:2552
+//      Caused by: akka.remote.transport.Transport$InvalidAssociationException: The remote system terminated the association because it is shutting down.
+//      ]
     } catch {
       case t: Throwable => {
         val sw = new StringWriter
