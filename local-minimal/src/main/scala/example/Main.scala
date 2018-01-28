@@ -7,14 +7,17 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 class MessageReceiver extends Actor {
   def receive = {
     case s: String =>
-      println(s"EchoActor: received message = $s")
+      println(s"[${Thread.currentThread().getName}] EchoActor: received message = $s")
   }
 }
 
-class MessageSender(targetReceiver: ActorRef) extends Actor {
+class MessageSender(messageReceiver: ActorRef) extends Actor {
   override def preStart(): Unit = {
-    println(s"sending a message to $targetReceiver")
-    targetReceiver ! "Hello!!"
+    val messages = List("Hello World", "Hello Universe", "Hello Galaxy")
+    for(msg <- messages) {
+      println(s"[${Thread.currentThread().getName}] sending message $msg to $messageReceiver")
+      messageReceiver ! msg
+    }
   }
 
   def receive = Actor.emptyBehavior
@@ -22,7 +25,7 @@ class MessageSender(targetReceiver: ActorRef) extends Actor {
 
 object MessageSender {
   //pattern described in https://doc.akka.io/docs/akka/2.5/actors.html
-  def props(targetReceiver: ActorRef) = Props(new MessageSender(targetReceiver))
+  def props(messageReceiver: ActorRef) = Props(new MessageSender(messageReceiver))
 }
 
 object Main {
@@ -32,7 +35,7 @@ object Main {
     try {
       val receiver = system.actorOf(Props[MessageReceiver], "receiver")
 
-      // Use object's props method to avoid a dangerous pattern described in
+      // Use companion object's props method to avoid a dangerous pattern described in
       // https://doc.akka.io/docs/akka/2.5/actors.html?language=scala#dangerous-variants
       system.actorOf(MessageSender.props(receiver), "sender")
       Thread.sleep(3000)
