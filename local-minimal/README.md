@@ -1,4 +1,7 @@
-blog post is https://richardimaoka.github.io/blog/local-minimal-sender
+blog posts are
+
+- https://richardimaoka.github.io/blog/local-minimal-sender 
+- https://richardimaoka.github.io/blog/local-minimal-receiver
 
 ## Instruction to run the example
 ```
