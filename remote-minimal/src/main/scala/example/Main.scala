@@ -2,7 +2,7 @@ package example
 
 import java.io.{PrintWriter, StringWriter}
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorSelection, ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 
 class MessageReceiver extends Actor {
@@ -15,7 +15,7 @@ class MessageReceiver extends Actor {
 class MessageSender extends Actor {
   override def preStart(): Unit = {
     val path = "akka.tcp://receiverSystem@127.0.0.1:2551/user/receiver"
-    val selection = context.actorSelection(path)
+    val selection: ActorSelection = context.actorSelection(path)
     println(s"sending a message to $path")
     selection ! "Hello!!"
   }

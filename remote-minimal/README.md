@@ -1,4 +1,7 @@
-blog post is https://richardimaoka.github.io/blog/remote-minimal-setup
+blog posts are:
+ 
+https://richardimaoka.github.io/blog/remote-minimal-setup
+https://richardimaoka.github.io/blog/remote-minimal-sender
 
 ## Instruction to run the example
 
