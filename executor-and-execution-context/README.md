@@ -1,5 +1,9 @@
+runMain example.executioncontext.Main
+sbt:executor-etc> runMain example.future.Main
+sbt:Hello> runMain example.executor.Main
 
-sbt:executor-and-execution-context> runMain example.thread.Main
+
+```
 [info] Compiling 1 Scala source to C:\Users\nishyu\resources\executor-and-execution-context\target\scala-2.12\classes ...
 [info] Done compiling.
 [warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
@@ -20,10 +24,12 @@ sbt:executor-and-execution-context> runMain example.thread.Main
 [Thread[Thread-10,5,run-main-group-1]] - PrintRunnable(8) run() is executed
 [Thread[Thread-14,5,run-main-group-1]] - PrintRunnable(12) run() is executed
 [success] Total time: 1 s, completed Feb 4, 2018 5:01:20 PM
+```
 
 
-sbt:Hello> runMain example.executorMain
-[info] Running example.Main
+
+```
+[info] Running example.executor.Main
 [Thread[run-main-0,5,run-main-group-0]] - main thread
 [Thread[pool-8-thread-1,5,run-main-group-0]] - PrintRunnable(1) run() is executed
 [Thread[pool-8-thread-2,5,run-main-group-0]] - PrintRunnable(2) run() is executed
@@ -38,8 +44,10 @@ sbt:Hello> runMain example.executorMain
 [Thread[pool-8-thread-1,5,run-main-group-0]] - PrintRunnable(9) run() is executed
 [Thread[pool-8-thread-3,5,run-main-group-0]] - PrintRunnable(12) run() is executed
 [success] Total time: 15 s, completed Feb 4, 2018 3:26:02 PM
+```
 
-runMain example.executioncontext.Main
+
+```
 [info] Running example.executioncontext.Main
 [Thread[run-main-2,5,run-main-group-2]] - main thread
 [Thread[scala-execution-context-global-168,5,main]] - PrintRunnable(2) run() is executed
@@ -55,8 +63,10 @@ runMain example.executioncontext.Main
 [Thread[scala-execution-context-global-128,5,main]] - PrintRunnable(6) run() is executed
 [Thread[scala-execution-context-global-131,5,main]] - PrintRunnable(11) run() is executed
 [success] Total time: 3 s, completed Feb 4, 2018 3:58:25 PM
+```
 
-sbt:executor-etc> runMain example.future.Main
+
+```
 [info] Running example.future.Main
 [Thread[run-main-3,5,run-main-group-3]] - main thread
 [Thread[scala-execution-context-global-200,5,main]] - printThreadName(1) is executed
@@ -72,8 +82,11 @@ sbt:executor-etc> runMain example.future.Main
 [Thread[scala-execution-context-global-200,5,main]] - printThreadName(11) is executed
 [Thread[scala-execution-context-global-200,5,main]] - printThreadName(12) is executed
 [success] Total time: 3 s, completed Feb 4, 2018 4:40:30 PM
+```
 
 
+
+```
 sbt:executor-and-execution-context> runMain example.dispatcher.Main
 [info] Compiling 1 Scala source to C:\Users\nishyu\resources\executor-and-execution-context\target\scala-2.12\classes ...
 [info] Done compiling.

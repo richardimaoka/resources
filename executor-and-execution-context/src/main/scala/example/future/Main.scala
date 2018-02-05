@@ -1,31 +1,64 @@
 package example.future
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Success, Failure, Try}
 
 object Main {
-  def printThreadName(i: Int): Unit = println(s"[${Thread.currentThread()}] - printThreadName($i) is executed")
+  def printThreadInsideFuture(i: Int): Unit = 
+    println(s"[${Thread.currentThread()}] - printThreadInsideFuture($i) is executed")
+  
+  def printThreadInsideCallback(i: Int): Unit = 
+    println(s"[${Thread.currentThread()}] - printThreadInsideCallback($i) is executed")
 
   def main(args: Array[String]): Unit = {
     println(s"[${Thread.currentThread()}] - main thread")
+
+    def callback(i: Int): Try[Unit] => Unit = {
+      case Success(_) => printThreadInsideCallback(i)
+      case Failure(_) => {
+        println("Future failed!!")
+        printThreadInsideCallback(i)
+      }
+    }
     
     // The "default" ExecutionContext which you wouldn't want to use in production,
     // It is `implicit`, so that Scala's `Future` uses it
     implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
 
-    //The signature of this `Future`'s `apply` method is
-    //  def apply[T](body: =>T)(implicit executor: ExecutionContext): Future[T]
-    Future{ printThreadName(1) }
-    Future{ printThreadName(2) }
-    Future{ printThreadName(3) }
-    Future{ printThreadName(4) }
-    Future{ printThreadName(5) }
-    Future{ printThreadName(6) }
-    Future{ printThreadName(7) }
-    Future{ printThreadName(8) }
-    Future{ printThreadName(9) }
-    Future{ printThreadName(10) }
-    Future{ printThreadName(11) }
-    Future{ printThreadName(12) }
+    // Future{} is calling the following apply method of `object Future`
+    //   def apply[T](body: =>T)(implicit executor: ExecutionContext): Future[T]
+    // where you *implicitly* pass the executor: ExecutionContext
+    val f1  = Future{ printThreadInsideFuture(1) }
+    val f2  = Future{ printThreadInsideFuture(2) }
+    val f3  = Future{ printThreadInsideFuture(3) }
+    val f4  = Future{ printThreadInsideFuture(4) }
+    val f5  = Future{ printThreadInsideFuture(5) }
+    val f6  = Future{ printThreadInsideFuture(6) }
+    val f7  = Future{ printThreadInsideFuture(7) }
+    val f8  = Future{ printThreadInsideFuture(8) }
+    val f9  = Future{ printThreadInsideFuture(9) }
+    val f10 = Future{ printThreadInsideFuture(10) }
+    val f11 = Future{ printThreadInsideFuture(11) }
+    val f12 = Future{ printThreadInsideFuture(12) }
+
+    // pause the main thread so that the output is not cluttered
+    // with mixed println from futures and onComplete callbacks
+    Thread.sleep(2000)
+    println()
+
+    f1.onComplete(callback(1))
+    f2.onComplete(callback(2))
+    f3.onComplete(callback(3))
+    f4.onComplete(callback(4))
+    f5.onComplete(callback(5))
+    f6.onComplete(callback(6))
+    f7.onComplete(callback(7))
+    f8.onComplete(callback(8))
+    f9.onComplete(callback(9))
+    f10.onComplete(callback(10))
+    f11.onComplete(callback(11))
+    f12.onComplete(callback(12))
+
     //give enough time all threads complete their `Runnable`s
     Thread.sleep(2000)
   }
