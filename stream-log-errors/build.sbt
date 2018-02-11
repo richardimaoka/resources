@@ -7,10 +7,9 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.12.4",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "event-adapter-tagging-cassandra",
+    name := "stream-log-errors",
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-persistence" % "2.5.6",
-      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.80-RC3",
+      "com.typesafe.akka" %% "akka-stream" % "2.5.9",
       scalaTest % Test
-    )a
+    )
   )
