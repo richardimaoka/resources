@@ -17,7 +17,7 @@ class MessageSender extends Actor {
     val path = "akka.tcp://receiverSystem@127.0.0.1:2551/user/receiver"
     val selection: ActorSelection = context.actorSelection(path)
     println(s"sending a message to $path")
-    selection ! "Hello!!"
+    selection ! "Hello World"
   }
 
   def receive = Actor.emptyBehavior

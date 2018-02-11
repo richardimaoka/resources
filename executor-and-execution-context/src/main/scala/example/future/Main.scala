@@ -21,13 +21,17 @@ object Main {
       }
     }
     
-    // The "default" ExecutionContext which you wouldn't want to use in production,
-    // It is `implicit`, so that Scala's `Future` uses it
+    // ExecutionContext.Implicits.global is the (kind of) "default" ExecutionContext
+    // which you wouldn't want to use in production,
+    // When using for Scala Future, ExecutionContext should be `implicit` as Future's
+    // def apply method takes it as the implicit parameter
     implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
 
     // Future{} is calling the following apply method of `object Future`
     //   def apply[T](body: =>T)(implicit executor: ExecutionContext): Future[T]
     // where you *implicitly* pass the executor: ExecutionContext
+    // The body of Future NOT executed immediately in the current thread,
+    // but executed asynchronously in another thread
     val f1  = Future{ printThreadInsideFuture(1) }
     val f2  = Future{ printThreadInsideFuture(2) }
     val f3  = Future{ printThreadInsideFuture(3) }
