@@ -7,7 +7,7 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 class MessageReceiver extends Actor {
   def receive = {
     case s: String =>
-      println(s"[${Thread.currentThread().getName}] EchoActor: received message = $s")
+      println(s"${Thread.currentThread()}|[${self.path}]|EchoActor: received message = $s")
   }
 }
 
@@ -15,7 +15,7 @@ class MessageSender(messageReceiver: ActorRef) extends Actor {
   override def preStart(): Unit = {
     val messages = List("Hello World", "Hello Universe", "Hello Galaxy")
     for(msg <- messages) {
-      println(s"[${Thread.currentThread().getName}] sending message $msg to $messageReceiver")
+      println(s"${Thread.currentThread()}|[${self.path}]|sending message $msg to $messageReceiver")
       messageReceiver ! msg
     }
   }
@@ -31,7 +31,6 @@ object MessageSender {
 object Main {
   def main(args: Array[String]): Unit = {
     val system = ActorSystem("exampleSystem")
-    println(s"provider = ${system.settings.config.getString("akka.actor.provider")}")
     try {
       val receiver = system.actorOf(Props[MessageReceiver], "receiver")
 
