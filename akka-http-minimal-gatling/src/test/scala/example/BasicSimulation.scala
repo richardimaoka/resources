@@ -2,12 +2,11 @@ package example
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import scala.concurrent.duration._
 
 class BasicSimulation extends Simulation {
-
-  println("sssssss")
   val httpConf = http
-    .baseURL("http://localhost:8080") // Here is the root for all relative URLs
+    .baseURL("http://localhost:10523") // Here is the root for all relative URLs
     .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
     .acceptLanguageHeader("en-US,en;q=0.5")
     .acceptEncodingHeader("gzip, deflate")
@@ -17,5 +16,5 @@ class BasicSimulation extends Simulation {
     .exec(http("request_1")
     .get("/"))
 
-  setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
+  setUp(scn.inject(rampUsers(30000) over(10.seconds)).protocols(httpConf))
 }

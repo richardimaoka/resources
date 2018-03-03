@@ -1,5 +1,4 @@
 lazy val akkaHttpVersion = "10.0.11"
-lazy val akkaVersion    = "2.5.9"
 
 lazy val root = (project in file(".")).
   settings(
@@ -9,8 +8,6 @@ lazy val root = (project in file(".")).
     )),
     name := "akka-http-sample",
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
-      "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.3.0",
-      "io.gatling"            % "gatling-test-framework"    % "2.3.0"
+      "com.typesafe.akka" %% "akka-http" % akkaHttpVersion
     )
-  ).enablePlugins(GatlingPlugin)
+  )

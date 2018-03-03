@@ -1,5 +1,7 @@
 package example
 
+import java.io.{PrintWriter, StringWriter}
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
@@ -14,13 +16,21 @@ object HttpServer extends {
     implicit val system: ActorSystem = ActorSystem("HttpServer")
     implicit val materializer: ActorMaterializer = ActorMaterializer()
 
-    lazy val routes: Route =
-      pathEndOrSingleSlash {
-        complete("OK")
-      }
+    try {
+      lazy val routes: Route =
+        pathEndOrSingleSlash {
+          complete("OK")
+        }
 
-    Http().bindAndHandle(routes, "localhost", 8080)
-    println(s"Server online at http://localhost:8080/")
-    Await.result(system.whenTerminated, Duration.Inf)
+      Http().bindAndHandle(routes, "localhost", 8080)
+      println(s"Server online at http://localhost:8080/")
+      Await.result(system.whenTerminated, Duration.Inf)
+    } catch {
+      case t: Throwable =>
+        val sw = new StringWriter
+        t.printStackTrace(new PrintWriter(sw))
+        println(t.getMessage)
+        println(sw)
+    }
   }
 }
