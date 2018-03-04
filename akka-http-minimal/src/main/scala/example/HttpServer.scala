@@ -19,11 +19,11 @@ object HttpServer extends {
     try {
       lazy val routes: Route =
         pathEndOrSingleSlash {
-          complete("OK")
+          complete("Hello World")
         }
 
-      Http().bindAndHandle(routes, "localhost", 8080)
-      println(s"Server online at http://localhost:8080/")
+      Http().bindAndHandle(routes, "localhost", 8088)
+      println(s"Server online at http://localhost:8088/")
       Await.result(system.whenTerminated, Duration.Inf)
     } catch {
       case t: Throwable =>
