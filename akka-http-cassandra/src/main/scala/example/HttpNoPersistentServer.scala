@@ -2,7 +2,7 @@ package example
 
 import java.io.{PrintWriter, StringWriter}
 
-import akka.actor.{ActorSystem, Props}
+import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.{Directives, Route}
 import akka.stream.ActorMaterializer
