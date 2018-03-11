@@ -22,8 +22,8 @@ object HttpServer extends {
           complete("Hello World")
         }
 
-      Http().bindAndHandle(routes, "localhost", 8088)
-      println(s"Server online at http://localhost:8088/")
+      Http().bindAndHandle(routes, "localhost", 8095)
+      println(s"Server online at http://localhost:8095/")
       Await.result(system.whenTerminated, Duration.Inf)
     } catch {
       case t: Throwable =>
