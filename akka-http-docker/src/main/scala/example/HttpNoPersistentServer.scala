@@ -2,11 +2,13 @@ package example
 
 import java.io.{PrintWriter, StringWriter}
 
-import akka.actor.ActorSystem
+import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.{Directives, Route}
+import akka.pattern.ask
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
+import example.ScoringActor.ScoringCommand
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -43,7 +45,7 @@ object HttpNoPersistentServer extends Directives {
           }
         }
 
-      Http().bindAndHandle(routes, "localhost", 8095)
+      Http().bindAndHandle(routes, "0.0.0.0", 8095)
       println(s"Server online at http://localhost:8095/")
       Await.result(system.whenTerminated, Duration.Inf)
     } catch {

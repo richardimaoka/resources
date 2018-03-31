@@ -1,8 +1,8 @@
-lazy val akkaVersion = "2.5.9"
+lazy val akkaVersion = "2.5.11"
 lazy val akkaHttpVersion = "10.1.0"
 
 enablePlugins(DockerPlugin)
-//enablePlugins(JavaAppPackaging)
+enablePlugins(JavaAppPackaging)
 
 lazy val root = (project in file(".")).
   settings(
@@ -10,7 +10,7 @@ lazy val root = (project in file(".")).
       organization    := "com.example",
       scalaVersion    := "2.12.4"
     )),
-    name := "akka-http-cassandra-docker",
+    name := "akka-http-docker",
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
