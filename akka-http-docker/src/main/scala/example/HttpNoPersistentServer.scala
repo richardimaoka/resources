@@ -45,8 +45,8 @@ object HttpNoPersistentServer extends Directives {
           }
         }
 
-      Http().bindAndHandle(routes, "0.0.0.0", 8095)
-      println(s"Server online at http://localhost:8095/")
+      Http().bindAndHandle(routes, "0.0.0.0", 8080)
+      println(s"Server online at http://localhost:8080/")
       Await.result(system.whenTerminated, Duration.Inf)
     } catch {
       case t: Throwable =>

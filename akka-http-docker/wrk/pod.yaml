@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wrk
+  labels:
+    purpose: wrk
+spec:
+  containers:
+  - name: wrk
+    image: wrk-akka-http-docker:1.0-SNAPSHOT
+    args: ["-t2", "-c100", "-d30s", "-s", "scripts/wrk-script.lua", "http://10.98.130.252/scoring"]
+    #args: ["-t2", "-c100", "-d30s", "-s", "scripts/wrk-script.lua",  "http://172.17.0.5:8095/scoring"]
+  restartPolicy: OnFailure
