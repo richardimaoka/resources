@@ -1,10 +1,8 @@
 package example
 
+import akka.NotUsed
 import akka.stream.stage.{GraphStageLogic, GraphStageWithMaterializedValue, InHandler}
 import akka.stream.{Attributes, Inlet, SinkShape}
-import akka.{Done, NotUsed}
-
-import scala.concurrent.Future
 
 class PrintSink(name: String) extends GraphStageWithMaterializedValue[SinkShape[Any], NotUsed] {
   val in = Inlet[Any]("PrintSink.in")

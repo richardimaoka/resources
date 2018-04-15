@@ -14,7 +14,6 @@ object Main {
 
     try {
       Source(1 to 10)
-        .via(Flow.fromGraph(new PrintStage("upstream", new IdProvider)))
         .groupBy(3, _ % 3)
         .to(Sink.fromGraph(new PrintSink("substream")))
         .run()
