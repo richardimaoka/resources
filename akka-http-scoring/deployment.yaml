@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akka-http-scoring
+spec:
+  selector:
+    matchLabels:
+      app: akka-http-scoring
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        #spec.template.labels should match with spec.selector.matchLabels, otherwise kubeclt error
+        #[error] The Deployment "akka-http-scoring" is invalid: spec.template.metadata.labels: Invalid value: map[string]string{"app":"akka-http-scoring-2"}: `selector` does not match template `labels`
+        app: akka-http-scoring
+    spec:
+      containers:
+      #This name appears in the return of `kubectl describe pods akka-http-scoring-***`
+      - name: akka-http-scoring-container
+        image: akka-http-scoring:0.1-SNAPSHOT
+        ports:
+        - containerPort: 8080

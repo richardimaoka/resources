@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wrk
+  labels:
+    purpose: wrk
+spec:
+  containers:
+  - name: wrk
+    image: asia.gcr.io/richard-scala-cassandra-sample/wrk-akka-http-scoring:1.0-SNAPSHOT
+    args: [
+      "-t2",
+      "-c100",
+      "-d30s",
+      "-s",
+      "scripts/wrk-script.lua",
+      "http://$(AKKA_HTTP_SCORING_SERVICE_HOST):$(AKKA_HTTP_SCORING_SERVICE_PORT)/scoring"
+    ]
+  restartPolicy: OnFailure

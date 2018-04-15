@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: akka-http-docker-service
+  name: akka-http-scoring
 spec:
   ports:
   - port: 80 # the port that this service should serve on
@@ -13,6 +13,6 @@ spec:
   # but this time it identifies the set of pods to load balance
   # traffic to.
   selector:
-    app: akka-http-docker
+    app: akka-http-scoring
   #This exposes an external IP
   #type: LoadBalancer
