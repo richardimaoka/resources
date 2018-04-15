@@ -5,7 +5,7 @@ import java.io.{PrintWriter, StringWriter}
 import akka.actor.ActorSystem
 import akka.stream._
 import akka.stream.scaladsl.{Flow, Sink, Source}
-import example.{IdProvider, PrintStage}
+import example.{IdProvider, PrintSink, PrintStage}
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -16,9 +16,7 @@ object Main {
       Source(1 to 10)
         .via(Flow.fromGraph(new PrintStage("upstream", new IdProvider)))
         .groupBy(3, _ % 3)
-        .to(
-          Flow.fromGraph(new PrintStage[Int]("subflow", new IdProvider)).to(Sink.seq)
-        )
+        .to(Sink.fromGraph(new PrintSink("substream")))
         .run()
 
       Thread.sleep(1000)

@@ -6,15 +6,6 @@ import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
 
 import scala.util.control.NonFatal
 
-class IdProvider {
-  var currentId = 0
-
-  def getId: Int = this.synchronized {
-    currentId = currentId + 1
-    currentId
-  }
-}
-
 class PrintStage[T](name: String, idProvider: IdProvider) extends GraphStage[FlowShape[T, T]] {
   val in = Inlet[T]("PrintStage.in")
   val out = Outlet[T]("PrintStage.out")
