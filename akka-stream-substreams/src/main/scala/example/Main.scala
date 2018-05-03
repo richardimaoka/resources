@@ -5,7 +5,7 @@ import java.io.{PrintWriter, StringWriter}
 import akka.actor.ActorSystem
 import akka.stream._
 import akka.stream.scaladsl.{Flow, Sink, Source}
-import example.{IdProvider, PrintSink, PrintStage}
+import example.{IdProvider, PrintSink}
 
 object Main {
   def main(args: Array[String]): Unit = {
