@@ -13,17 +13,17 @@ class PrintSink(name: String) extends GraphStageWithMaterializedValue[SinkShape[
   override def createLogicAndMaterializedValue(inheritedAttributes: Attributes): (GraphStageLogic, NotUsed) = {
     val logic = new GraphStageLogic(shape) with InHandler {
       val id = idProvider.getId
-      val prefix = s"[$name($id)]"
+      val prefix = s"[$name($id)][${Thread.currentThread().getName}]"
 
       override def preStart(): Unit = {
-        println(f"$prefix%20s pull()")
+        println(f"$prefix%30s pull()")
         pull(in)
       }
 
       override def onPush(): Unit = {
         val elem = grab(in)
-        println(f"$prefix%20s onPush($elem)")
-        println(f"$prefix%20s pull()")
+        println(f"$prefix%30s onPush($elem)")
+        println(f"$prefix%30s pull()")
         pull(in)
       }
 
