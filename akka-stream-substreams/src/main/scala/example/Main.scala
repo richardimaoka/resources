@@ -1,11 +1,10 @@
-package my.stream
+package example
 
 import java.io.{PrintWriter, StringWriter}
 
 import akka.actor.ActorSystem
 import akka.stream._
-import akka.stream.scaladsl.{Flow, Sink, Source}
-import example.{IdProvider, PrintSink}
+import akka.stream.scaladsl.{Sink, Source}
 
 object Main {
   def main(args: Array[String]): Unit = {
