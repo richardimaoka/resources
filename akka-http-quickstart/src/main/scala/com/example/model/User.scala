@@ -1,6 +1,6 @@
 package com.example.model
 
-import spray.json.DefaultJsonProtocol._ //for jsonFormat2
+import spray.json.DefaultJsonProtocol._
 import spray.json.RootJsonFormat
 
 case class User(name: String, age: Int)

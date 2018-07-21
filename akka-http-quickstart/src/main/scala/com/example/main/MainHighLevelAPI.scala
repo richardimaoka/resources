@@ -1,9 +1,9 @@
-package com.example
+package com.example.main
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import route.UserRoute
+import com.example.route.UserRoute
 
 object MainHighLevelAPI {
   def main(args: Array[String]): Unit = {
