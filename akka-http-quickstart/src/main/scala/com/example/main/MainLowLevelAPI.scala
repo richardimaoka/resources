@@ -14,7 +14,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object MainLowLevelAPI {
   def main(args: Array[String]): Unit = {
-    implicit val system: ActorSystem = ActorSystem("helloAkkaHttpServer")
+    implicit val system: ActorSystem = ActorSystem("MainLowLevelAPI")
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val ec: ExecutionContext = system.dispatcher
 
