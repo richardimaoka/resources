@@ -2,7 +2,6 @@ package com.example
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 
 object Main {
@@ -10,12 +9,7 @@ object Main {
     implicit val system: ActorSystem = ActorSystem("Main")
     implicit val materializer: ActorMaterializer = ActorMaterializer()
 
-    val route = get {
-      Thread.sleep(1000)
-      complete("Hello World")
-    }
-
-    Http().bindAndHandle(route, "localhost", 8080)
+    Http().bindAndHandle(MainRoute.route, "localhost", 8080)
     println(s"Server online at http://localhost:8080/")
   }
 }
