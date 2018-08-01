@@ -18,6 +18,6 @@ curl
   -d "@request.json" http://localhost:8080
 ```
 
-you see the result like below:
+you see the result like below (upper window = server side, the lower window is curl command):
 
 ![](demo1.gif)
